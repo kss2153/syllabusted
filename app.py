@@ -18,7 +18,6 @@ import date_parser
 import os
 from urlparse import urlsplit
 import pymongo
-from pymongo import Connection
 import mongoengine
 
 
@@ -27,68 +26,26 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'this_should_be_configured')
 api = Api(app)
-
-app.config['MONGODB_SETTINGS'] = { 'db': 'calendarevents' }
-"""
-app.config['MONGODB_HOST'] = 'ds143539.mlab.com:'
-app.config['MONGODB_PORT'] = 43539
-app.config['MONGODB_USERNAME'] = 'heroku_sh8wld3x'
-app.config['MONGODB_PASSWORD'] = 'as1pql8djk35iu8ah7014f61m7'
-app.config['MONGODB_DATABASE'] = 'as1pql8djk35iu8ah7014f61m7'
-"""
-
-
+app.config['MONGODB_SETTINGS'] = { 'db': 'calendarevents',
+            'username': 'kss2153',
+            'password': '14617CZ3k',
+            'host': 'mongodb://kss2153:14617CZ3k@ds143539.mlab.com:43539/heroku_sh8wld3x?authMechanism=SCRAM-SHA-1',
+            'port': 43539
+ }
 app.config['SECRET_KEY'] = 'aal193192112lfqams'
 app.config['WTF_CSRF_ENABLED'] = True
 
+#db = MongoEngine(app)
 mongo_url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
 db_name = 'mongotest'
 
 
-#db = MongoEngine(app)
-"""
-db.connect(
-    'calendarevents',
-    username='kss2153',
-    password='14617CZ3k',
-    host='mongodb://heroku_sh8wld3x:as1pql8djk35iu8ah7014f61m7@ds143539.mlab.com:43539/heroku_sh8wld3x',
-    port=43539
-)
-"""
-uri = 'mongodb://heroku_sh8wld3x:as1pql8djk35iu8ah7014f61m7@ds143539.mlab.com:43539/heroku_sh8wld3x'
+db = MongoEngine(app)
+
+uri = 'mongodb://kss2153:14617CZ3k@ds143539.mlab.com:43539/heroku_sh8wld3x?authMechanism=SCRAM-SHA-1'
 client = pymongo.MongoClient(uri)
-db = client.get_default_database()
-
-"""
-    db='test',
-    username='heroku_sh8wld3x',
-    password='s1pql8djk35iu8ah7014f61m7',
-    host='ds143539.mlab.com:43539/heroku_sh8wld3x',
-    port=43539)
-"""
-"""
-if __name__ == '__main__':
-  try:
-   connection = pymongo.Connection(mongo_url)
-   if 'localhost' in self.mongo_url:
-     db_name = 'localdb'
-
-   else:
-     parsed = urlsplit(mongo_url)
-     db_name = parsed.path[1:]
-     # Get your DB
-     db = Connection(mongo_url)[db_name]
-     # Authenticate
-     if '@' in mongo_url:
-         user, password = parsed.netloc.split('@')[0].split(':')
-         db.authenticate(user, password)
-  except:
-   print('Error: Unable to Connect')
-   connection = None
-
-  if connection is not None:
-    database.test.insert({'db': 'calendarevents'})
-"""
+#db = client.get_default_database(
+#db = client.events
 
 login_manager = LoginManager()
 login_manager.init_app(app)
