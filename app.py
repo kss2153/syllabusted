@@ -16,6 +16,10 @@ from pdfminer.pdfpage import PDFPage
 import json
 import date_parser
 import os
+from urlparse import urlsplit
+from pymongo import Connection
+
+
 
 app = Flask(__name__)
 
@@ -25,7 +29,18 @@ app.config['MONGODB_SETTINGS'] = { 'db': 'calendarevents' }
 app.config['SECRET_KEY'] = 'aal193192112lfqams'
 app.config['WTF_CSRF_ENABLED'] = True
 
-db = MongoEngine(app)
+url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
+parsed = urlsplit(url)
+db_name = parsed.path[1:]
+
+# Get your DB
+db = Connection(url)[db_name]
+
+# Authenticate
+if '@' in url:
+    user, password = parsed.netloc.split('@')[0].split(':')
+    db.authenticate(user, password)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 
