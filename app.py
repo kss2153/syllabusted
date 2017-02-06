@@ -19,6 +19,7 @@ import os
 from urlparse import urlsplit
 import pymongo
 from pymongo import Connection
+import mongoengine as db
 
 
 
@@ -34,7 +35,10 @@ mongo_url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
 db_name = 'mongotest'
 
 
-db = MongoEngine(app)
+#db = MongoEngine(app)
+db.connect(mongo_url)
+
+"""
 if __name__ == '__main__':
   try:
    connection = pymongo.Connection(mongo_url)
@@ -56,7 +60,7 @@ if __name__ == '__main__':
 
   if connection is not None:
     database.test.insert({'db': 'calendarevents'})
-
+"""
 
 login_manager = LoginManager()
 login_manager.init_app(app)
