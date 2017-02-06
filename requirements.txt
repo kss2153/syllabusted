@@ -17,6 +17,7 @@ requests==2.2.1
 six==1.10.0
 wsgiref==0.1.2
 pdfminer==20140328
+flask_restful
 
 
 
