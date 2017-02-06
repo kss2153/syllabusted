@@ -29,7 +29,7 @@ app.config['MONGODB_SETTINGS'] = { 'db': 'calendarevents' }
 app.config['SECRET_KEY'] = 'aal193192112lfqams'
 app.config['WTF_CSRF_ENABLED'] = True
 
-url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
+mongo_url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
 db_name = 'mongotest'
 
 if __name__ == '__main__':
