@@ -19,7 +19,7 @@ import os
 from urlparse import urlsplit
 import pymongo
 from pymongo import Connection
-import mongoengine as db
+import mongoengine
 
 
 
@@ -27,7 +27,17 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'this_should_be_configured')
 api = Api(app)
+
 app.config['MONGODB_SETTINGS'] = { 'db': 'calendarevents' }
+"""
+app.config['MONGODB_HOST'] = 'ds143539.mlab.com:'
+app.config['MONGODB_PORT'] = 43539
+app.config['MONGODB_USERNAME'] = 'heroku_sh8wld3x'
+app.config['MONGODB_PASSWORD'] = 'as1pql8djk35iu8ah7014f61m7'
+app.config['MONGODB_DATABASE'] = 'as1pql8djk35iu8ah7014f61m7'
+"""
+
+
 app.config['SECRET_KEY'] = 'aal193192112lfqams'
 app.config['WTF_CSRF_ENABLED'] = True
 
@@ -36,8 +46,26 @@ db_name = 'mongotest'
 
 
 #db = MongoEngine(app)
-db.connect(mongo_url)
+"""
+db.connect(
+    'calendarevents',
+    username='kss2153',
+    password='14617CZ3k',
+    host='mongodb://heroku_sh8wld3x:as1pql8djk35iu8ah7014f61m7@ds143539.mlab.com:43539/heroku_sh8wld3x',
+    port=43539
+)
+"""
+uri = 'mongodb://heroku_sh8wld3x:as1pql8djk35iu8ah7014f61m7@ds143539.mlab.com:43539/heroku_sh8wld3x'
+client = pymongo.MongoClient(uri)
+db = client.get_default_database()
 
+"""
+    db='test',
+    username='heroku_sh8wld3x',
+    password='s1pql8djk35iu8ah7014f61m7',
+    host='ds143539.mlab.com:43539/heroku_sh8wld3x',
+    port=43539)
+"""
 """
 if __name__ == '__main__':
   try:
