@@ -17,6 +17,7 @@ import json
 import date_parser
 import os
 from urlparse import urlsplit
+import pymongo
 from pymongo import Connection
 
 
@@ -29,7 +30,7 @@ app.config['MONGODB_SETTINGS'] = { 'db': 'calendarevents' }
 app.config['SECRET_KEY'] = 'aal193192112lfqams'
 app.config['WTF_CSRF_ENABLED'] = True
 
-url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
+mongo_url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
 db_name = 'mongotest'
 
 
@@ -41,14 +42,12 @@ if __name__ == '__main__':
      db_name = 'localdb'
 
    else:
-     parsed = urlsplit(url)
+     parsed = urlsplit(mongo_url)
      db_name = parsed.path[1:]
-
      # Get your DB
-     db = Connection(url)[db_name]
-
+     db = Connection(mongo_url)[db_name]
      # Authenticate
-     if '@' in url:
+     if '@' in mongo_url:
          user, password = parsed.netloc.split('@')[0].split(':')
          db.authenticate(user, password)
   except:
