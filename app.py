@@ -30,17 +30,24 @@ app.config['SECRET_KEY'] = 'aal193192112lfqams'
 app.config['WTF_CSRF_ENABLED'] = True
 
 url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
-parsed = urlsplit(url)
-db_name = parsed.path[1:]
+db_name = 'mongotest'
 
-# Get your DB
-db = Connection(url)[db_name]
+if __name__ == '__main__':
+  try:
+   connection = pymongo.Connection(mongo_url)
+   if 'localhost' in self.mongo_url:
+     db_name = 'localdb'
+   else:
+     db_name = self.mongo_url.rsplit('/',1)[1]
+   database = connection[db_name]
+  except:
+   print('Error: Unable to Connect')
+   connection = None
 
-# Authenticate
-if '@' in url:
-    user, password = parsed.netloc.split('@')[0].split(':')
-    db.authenticate(user, password)
+  if connection is not None:
+    database.test.insert({'db': 'calendarevents'})
 
+db = MongoEngine(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
