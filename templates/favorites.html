@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Schedule{% endblock %}
+{% block body %}
+<h1>{{current_user.name}}'s Schedule</h1>
+<form action = "/calendar" method = "GET">
+    <input type = "submit" value="sync with google calendar" />
+</form>
+
+<form action = "/logout" method = "GET">
+    <input type = "submit" value="logout" />
+</form>
+{% if favorites|length > 0 %}
+    <ul>
+    {% for fav in favorites  %}
+        <li>
+            <h3>{{ fav.readDate }}</h3>
+            <h5><ul>{{ fav.description }}</ul></h5>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't added any events yet.</p>
+{% endif %}
+{% endblock %}

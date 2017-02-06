@@ -1,74 +1,26 @@
-<!doctype html>
-<html class="no-js" lang="en">
+<!DOCTYPE html>
+<html lang="en" >
+
 <head>
   <meta charset="utf-8">
-
-  <title>{% block title %}yoursite.com{% endblock %}</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="shortcut icon" href="/static/favicon.ico">
-
-  <!-- HTML5 shim, for IE 6-8 support of HTML elements -->
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
-  <link rel="stylesheet/less" href="/static/css/main.less">
-  {% block css %}{% endblock %}
-
-  <!-- Rather use `less.js` to dynamically compile your `stylesheet/less` files? -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js"></script>
-  <script>window.less || document.write('<script src="/static/js/less.js">\x3C/script>')</script>
-
-  <!-- Need Modernizr? Uncomment the following script. -->
-  <!-- <script src="/static/js/modernizr.js"></script> -->
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
 
 </head>
-
 <body>
-
-  <header>
-    {% include "header.html" %}
-  </header>
-
-  <div id="main" role="main">
-    {% block main %}{% endblock %}
+  <div class="row">
+      <div class="large-12 columns">
+          <div class="panel">
+              {% block body %}{% endblock %}
+          </div>
+      </div>
   </div>
 
-  <footer>
-    {% include "footer.html" %}
-  </footer>
-
-
-  <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="/static/js/libs/jquery.js">\x3C/script>')</script>
-
-
-  <!-- Additional JavaScript libraries and plugins... -->
-  {% block js %}{% endblock %}
-
-
-  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
+  <script src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/foundation.js') }}"></script>
   <script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
+  	$(document).foundation();
   </script>
-
-
-  <!-- Prompt IE < 8 users to install Chrome Frame.  -->
-  <!--[if lt IE 8 ]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-  <![endif]-->
-
 </body>
 </html>

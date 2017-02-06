@@ -1,0 +1,47 @@
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<style>
+a:link    {color:green; background-color:transparent; text-decoration:none}
+a:visited {color:pink; background-color:transparent; text-decoration:none}
+a:hover   {color:red; background-color:transparent; text-decoration:underline}
+a:active  {color:yellow; background-color:transparent; text-decoration:underline}
+</style>
+    <title> Syllabusted </title>
+       <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+</head>
+<!--<nav>
+  <ul>
+    <li><a href="#">Navigation</a></li>
+    <li><a href="#">Menu</a></li>
+    <li><a href="#">Links</a></li>
+  </ul>
+</nav> -->
+ <body>
+ <h1> Syllabusted </h1>
+
+ <!-- <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+   -->
+   <p>
+   <a href="/list">my schedule</a>
+   </p>
+
+   <p>
+   or input the syllabus from your favorite class:
+   </p>
+
+      <form action = "/uploader" method = "POST" 
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" class="w3-btn w3-light-grey w3-padding-xlarge" style="margin-top:64px; margin-bottom:64px; text-size:50px"/>
+         <input type = "submit"/>
+      </form>
+
+   </body>
+
+</html>
