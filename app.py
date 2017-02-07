@@ -27,7 +27,6 @@ from flask_mongorest import operators as ops
 from flask_mongorest import methods
 
 
-
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'this_should_be_configured')
@@ -229,12 +228,12 @@ class UserResource(Resource):
         'name': [ops.Exact, ops.Startswith],
     }
 
-@api.register(name='events', url='/events/')
+@api.register(name='events', url='/api/events/')
 class EventView(ResourceView):
     resource = EventResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
-@api.register(name='users', url='/users/')
+@api.register(name='users', url='/api/users/')
 class UserView(ResourceView):
     resource = UserResource
     methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
