@@ -20,12 +20,17 @@ from urlparse import urlsplit
 import pymongo
 import mongoengine
 
+from flask_mongorest import MongoRest
+from flask_mongorest.views import ResourceView
+from flask_mongorest.resources import Resource
+from flask_mongorest import operators as ops
+from flask_mongorest import methods
+
 
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'this_should_be_configured')
-api = Api(app)
 app.config['MONGODB_SETTINGS'] = { 'db': 'calendarevents',
             'username': 'kss2153',
             'password': '14617CZ3k',
@@ -37,18 +42,12 @@ app.config['WTF_CSRF_ENABLED'] = True
 
 #db = MongoEngine(app)
 mongo_url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
-db_name = 'mongotest'
-
 
 db = MongoEngine(app)
-
-uri = 'mongodb://kss2153:14617CZ3k@ds143539.mlab.com:43539/heroku_sh8wld3x?authMechanism=SCRAM-SHA-1'
-client = pymongo.MongoClient(uri)
-#db = client.get_default_database(
-#db = client.events
-
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+api = MongoRest(app)
 
 ###
 # Routing for your application.
@@ -202,12 +201,43 @@ def favorites():
   favorites = CalendarEvent.objects(userName=current_poster)
   return render_template("favorites.html", current_user=current_user, favorites=favorites)
 
+"""
 class SychSchedule(Resource):
     def get(self):
 
       return "hello"
 
 api.add_resource(SychSchedule, '/syncUserSchedule')
+"""
+
+class EventResource(Resource):
+    document = CalendarEvent
+    filters = {
+        'summary': [ops.Exact, ops.Startswith],
+        'description': [ops.Exact, ops.Startswith],
+        'className': [ops.Exact, ops.Startswith],
+        'readDate': [ops.Exact, ops.Startswith],
+        'author_id': [ops.Exact],
+    }
+    rename_fields = {
+        'userName': 'author_id',
+    }
+
+class UserResource(Resource):
+    document = User
+    filters = {
+        'name': [ops.Exact, ops.Startswith],
+    }
+
+@api.register(name='events', url='/events/')
+class EventView(ResourceView):
+    resource = EventResource
+    methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
+
+@api.register(name='users', url='/users/')
+class UserView(ResourceView):
+    resource = UserResource
+    methods = [methods.Create, methods.Update, methods.Fetch, methods.List]
 
 
 @app.route('/about/')
