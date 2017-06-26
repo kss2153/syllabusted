@@ -33,7 +33,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'this_should_be_configur
 app.config['MONGODB_SETTINGS'] = { 'db': 'calendarevents',
             'username': 'kss2153',
             'password': '14617CZ3k',
-            'host': 'mongodb://kss2153:14617CZ3k@ds143539.mlab.com:43539/heroku_sh8wld3x?authMechanism=SCRAM-SHA-1',
+            'host': 'mongodb://kss2153:123456@ds143539.mlab.com:43539/heroku_sh8wld3x?authMechanism=SCRAM-SHA-1',
             'port': 43539
  }
 app.config['SECRET_KEY'] = 'aal193192112lfqams'
