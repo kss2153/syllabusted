@@ -32,7 +32,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'this_should_be_configured')
 app.config['MONGODB_SETTINGS'] = { 'db': 'calendarevents',
             'username': 'kss2153',
-            'password': '14617CZ3k',
+            'password': '123456',
             'host': 'mongodb://kss2153:123456@ds143539.mlab.com:43539/heroku_sh8wld3x?authMechanism=SCRAM-SHA-1',
             'port': 43539
  }
